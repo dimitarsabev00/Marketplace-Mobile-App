@@ -1,10 +1,9 @@
-import { Text, View } from "react-native";
+import React from "react";
+import { Redirect } from "expo-router";
 import "../global.css";
 
-export default function Page() {
-  return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="font-bold">Hello In Marketplace Mobile App!!</Text>
-    </View>
-  );
-}
+const IndexPage = () => {
+  return <Redirect href="/login" />;
+};
+
+export default IndexPage;
