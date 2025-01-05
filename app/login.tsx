@@ -8,8 +8,50 @@ import {
 } from "react-native";
 import React from "react";
 
+import * as WebBrowser from "expo-web-browser";
+import { useOAuth } from "@clerk/clerk-expo";
+import { useRouter } from "expo-router";
+import * as Linking from "expo-linking";
+
+export const useWarmUpBrowser = () => {
+  React.useEffect(() => {
+    void WebBrowser.warmUpAsync();
+    return () => {
+      void WebBrowser.coolDownAsync();
+    };
+  }, []);
+};
+
+WebBrowser.maybeCompleteAuthSession();
+
 const LoginScreen = () => {
-  const handleGetStarted = () => Alert.alert("Sign In", "not implemented!!");
+  useWarmUpBrowser();
+  const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
+  const router = useRouter(); // Router for manual navigation
+
+  const handleGetStarted = React.useCallback(async () => {
+    try {
+      const redirectUrl = Linking.createURL("/", {
+        scheme: "home-service-mobile-app",
+      });
+
+      const { createdSessionId, setActive } = await startOAuthFlow({
+        redirectUrl,
+      });
+
+      if (createdSessionId) {
+        await setActive({ session: createdSessionId }); // Set the session
+        console.log("Login successful, session set.");
+
+        // Manually navigate to home after setting the session
+        router.replace("/(tabs)/home");
+      } else {
+        console.log("No session created. Handle MFA or other flows here.");
+      }
+    } catch (err) {
+      console.error("OAuth Error:", JSON.stringify(err, null, 2));
+    }
+  }, [router]);
 
   return (
     <View className="items-center">
