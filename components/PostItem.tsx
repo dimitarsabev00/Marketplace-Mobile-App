@@ -7,18 +7,14 @@ export default function PostItem({ item }) {
     <TouchableOpacity
       className="flex-1 m-2 p-2 rounded-lg 
     border-[1px] border-slate-200"
-      // onPress={() =>
-      //   // navigation.push("product-detail", {
-      //   //   product: item,
-      //   // })
-      //   router.push({
-      //     // pathname: "/(tabs)/home/business-list-by-category",
-      //     pathname: "product-detail",
-      //     params: {
-      //       product: item,
-      //     },
-      //   })
-      // }
+      onPress={() =>
+        router.push({
+          pathname: "/(tabs)/home/product-details",
+          params: {
+            product: item,
+          },
+        })
+      }
     >
       <Image
         source={{ uri: item.image }}

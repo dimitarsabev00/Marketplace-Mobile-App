@@ -15,6 +15,14 @@ export default function HomeLayout() {
           headerTintColor: "#fff",
         })}
       />
+      <Stack.Screen
+        name="product-details"
+        options={({ route }) => ({
+          title: "Product Details",
+          headerStyle: { backgroundColor: "#3b82f6" },
+          headerTintColor: "#fff",
+        })}
+      />
     </Stack>
   );
 }
