@@ -92,9 +92,9 @@ export default function AddPostScreen() {
       });
   };
   return (
-    <SafeAreaView>
+    <SafeAreaView className="p-10 bg-white">
       <KeyboardAvoidingView>
-        <ScrollView className="p-10 bg-white ">
+        <ScrollView>
           <Text className="text-[27px] font-bold">Add New Post</Text>
           <Text className="text-[16px] text-gray-500 mb-7">
             Create New Post and Start Selling
