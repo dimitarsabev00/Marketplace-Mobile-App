@@ -7,6 +7,14 @@ export default function ExploreLayout() {
         name="index"
         options={{ title: "Explore", headerShown: false }}
       />
+      <Stack.Screen
+        name="product-details"
+        options={({ route }) => ({
+          title: "Product Details",
+          headerStyle: { backgroundColor: "#3b82f6" },
+          headerTintColor: "#fff",
+        })}
+      />
     </Stack>
   );
 }
