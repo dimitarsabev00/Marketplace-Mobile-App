@@ -5,7 +5,7 @@ import { db } from "@/configs/firebase";
 import LatestItemList from "@/components/LatestItemList";
 import { useLocalSearchParams } from "expo-router";
 
-export default function ItemList() {
+export default function CategoryProductList() {
   const params = useLocalSearchParams();
 
   const [itemList, setItemList] = useState([]);
