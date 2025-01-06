@@ -4,6 +4,7 @@ import {
   Image,
   ScrollView,
   Linking,
+  Share,
   Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -32,7 +33,20 @@ export default function ProductDetails() {
     }
   }, [params]);
 
-  
+  /**
+   * Used to Share Product
+   */
+  const shareProduct = async () => {
+    if (!product) return;
+    const content = {
+      message: `${product.title}\n${product.desc}`,
+    };
+    try {
+      await Share.share(content);
+    } catch (error) {
+      console.error("Error sharing product:", error);
+    }
+  };
 
   const sendEmailMessage = () => {
     if (!product) return;
@@ -91,7 +105,20 @@ export default function ProductDetails() {
 
   return (
     <>
-      
+      <Stack.Screen
+        options={{
+          title: "Product Details",
+          headerRight: () => (
+            <Ionicons
+              name="share-social-sharp"
+              size={24}
+              onPress={shareProduct}
+              color="white"
+              style={{ marginRight: 15 }}
+            />
+          ),
+        }}
+      />
       <ScrollView className="bg-white">
         <Image
           source={{ uri: product.image }}
